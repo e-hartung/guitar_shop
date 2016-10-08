@@ -7,6 +7,34 @@ $shipping_address = get_address($order['shipAddressID']);
 <html>
 <head>
 <title>HTML email</title>
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    td, th {
+        margin: 0;
+        padding: .25em;
+    }
+    .right {
+        text-align: right;
+    }
+    .left {
+        text-align: left;
+    }
+    #cart {
+        margin: 0;
+        padding: 1em .25em;
+        border-collapse: collapse;
+        width: 75%;
+    }
+    #cart_header th {
+        border-bottom: 2px solid black;
+    }
+    #cart_footer td {
+        border-top: 2px solid black;
+        font-weight: bold;
+    }
+</style>
 </head>
 <body>
 <p>Hello <?php echo $customer_name; ?>,
@@ -73,7 +101,7 @@ $shipping_address = get_address($order['shipAddressID']);
             <?php echo sprintf('$%.2f', $order['shipAmount']); ?>
         </td>
     </tr>
-        <tr>
+    <tr id="cart_footer">
         <td colspan="5" class="right">Total:</td>
         <td class="right">
             <?php
