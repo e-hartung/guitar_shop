@@ -114,6 +114,8 @@ switch ($action) {
             $quantity = $item['quantity'];
             add_order_item($order_id, $product_id,
                            $item_price, $discount, $quantity);
+            decrement_product_count($product_id, $quantity); //insert new function into loop to decrease       
+                                                             //quantity onHand
         }
         send_email($order_id);
         clear_cart();

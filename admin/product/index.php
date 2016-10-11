@@ -9,7 +9,7 @@ require_once('model/category_db.php');
 $action = strtolower(filter_input(INPUT_POST, 'action'));
 if ($action == NULL) {
     $action = strtolower(filter_input(INPUT_GET, 'action'));
-    if ($action == NULL) {        
+    if ($action == NULL) {
         $action = 'list_products';
     }
 }
@@ -17,7 +17,7 @@ if ($action == NULL) {
 switch ($action) {
     case 'list_products':
         // get categories and products
-        $category_id = filter_input(INPUT_GET, 'category_id', 
+        $category_id = filter_input(INPUT_GET, 'category_id',
                 FILTER_VALIDATE_INT);
         if (empty($category_id)) {
             $category_id = 1;
@@ -31,27 +31,27 @@ switch ($action) {
         break;
     case 'view_product':
         $categories = get_categories();
-        $product_id = filter_input(INPUT_GET, 'product_id', 
+        $product_id = filter_input(INPUT_GET, 'product_id',
                 FILTER_VALIDATE_INT);
         $product = get_product($product_id);
         $product_order_count = get_product_order_count($product_id);
         include('product_view.php');
         break;
     case 'delete_product':
-        $category_id = filter_input(INPUT_POST, 'category_id', 
+        $category_id = filter_input(INPUT_POST, 'category_id',
                 FILTER_VALIDATE_INT);
-        $product_id = filter_input(INPUT_POST, 'product_id', 
+        $product_id = filter_input(INPUT_POST, 'product_id',
                 FILTER_VALIDATE_INT);
         delete_product($product_id);
-        
+
         // Display the Product List page for the current category
         header("Location: .?category_id=$category_id");
         break;
     case 'show_add_edit_form':
-        $product_id = filter_input(INPUT_GET, 'product_id', 
+        $product_id = filter_input(INPUT_GET, 'product_id',
                 FILTER_VALIDATE_INT);
         if ($product_id === null) {
-            $product_id = filter_input(INPUT_POST, 'product_id', 
+            $product_id = filter_input(INPUT_POST, 'product_id',
                     FILTER_VALIDATE_INT);
         }
         $product = get_product($product_id);
@@ -59,14 +59,16 @@ switch ($action) {
         include('product_add_edit.php');
         break;
     case 'add_product':
-        $category_id = filter_input(INPUT_POST, 'category_id', 
+        $category_id = filter_input(INPUT_POST, 'category_id',
                 FILTER_VALIDATE_INT);
         $code = filter_input(INPUT_POST, 'code');
         $name = filter_input(INPUT_POST, 'name');
         $description = filter_input(INPUT_POST, 'description');
-        $price = filter_input(INPUT_POST, 'price', 
+        $price = filter_input(INPUT_POST, 'price',
                 FILTER_VALIDATE_FLOAT);
-        $discount_percent = filter_input(INPUT_POST, 'discount_percent', 
+        $on_hand = filter_input(INPUT_POST, 'on_hand',
+                FILTER_VALIDATE_FLOAT);
+        $discount_percent = filter_input(INPUT_POST, 'discount_percent',
                 FILTER_VALIDATE_FLOAT);
 
         // Validate inputs
@@ -78,22 +80,24 @@ switch ($action) {
         } else {
             $categories = get_categories();
             $product_id = add_product($category_id, $code, $name,
-                    $description, $price, $discount_percent);
+                    $description, $price, $on_hand, $discount_percent);
             $product = get_product($product_id);
             include('product_view.php');
         }
         break;
     case 'update_product':
-        $product_id = filter_input(INPUT_POST, 'product_id', 
+        $product_id = filter_input(INPUT_POST, 'product_id',
                 FILTER_VALIDATE_INT);
-        $category_id = filter_input(INPUT_POST, 'category_id', 
+        $category_id = filter_input(INPUT_POST, 'category_id',
                 FILTER_VALIDATE_INT);
         $code = filter_input(INPUT_POST, 'code');
         $name = filter_input(INPUT_POST, 'name');
         $description = filter_input(INPUT_POST, 'description');
-        $price = filter_input(INPUT_POST, 'price', 
+        $price = filter_input(INPUT_POST, 'price',
                 FILTER_VALIDATE_FLOAT);
-        $discount_percent = filter_input(INPUT_POST, 'discount_percent', 
+        $on_hand = filter_input(INPUT_POST, 'on_hand',
+                FILTER_VALIDATE_FLOAT);
+        $discount_percent = filter_input(INPUT_POST, 'discount_percent',
                 FILTER_VALIDATE_FLOAT);
 
         // Validate inputs
@@ -105,13 +109,13 @@ switch ($action) {
         } else {
             $categories = get_categories();
             update_product($product_id, $code, $name, $description,
-                           $price, $discount_percent, $category_id);
+                           $price, $on_hand, $discount_percent, $category_id);
             $product = get_product($product_id);
             include('product_view.php');
         }
         break;
     case 'upload_image':
-        $product_id = filter_input(INPUT_POST, 'product_id', 
+        $product_id = filter_input(INPUT_POST, 'product_id',
                 FILTER_VALIDATE_INT);
         $product = get_product($product_id);
         $product_code = $product['productCode'];

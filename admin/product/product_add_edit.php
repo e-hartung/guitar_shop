@@ -22,7 +22,7 @@
 
         <label>Category:</label>
         <select name="category_id">
-        <?php foreach ($categories as $category) : 
+        <?php foreach ($categories as $category) :
             if ($category['categoryID'] == $product['categoryID']) {
                 $selected = 'selected';
             } else {
@@ -43,18 +43,23 @@
         <br>
 
         <label>Name:</label>
-        <input type="text" name="name" 
-               value="<?php echo htmlspecialchars($product['productName']); ?>" 
+        <input type="text" name="name"
+               value="<?php echo htmlspecialchars($product['productName']); ?>"
                size="50">
         <br>
 
         <label>List Price:</label>
-        <input type="text" name="price" 
+        <input type="text" name="price"
                value="<?php echo $product['listPrice']; ?>">
         <br>
 
+        <label>On Hand:</label>
+        <input type="text" name="on_hand"
+               value="<?php echo $product['onHand']; ?>">
+        <br>
+
         <label>Discount Percent:</label>
-        <input type="text" name="discount_percent" 
+        <input type="text" name="discount_percent"
                value="<?php echo $product['discountPercent']; ?>">
         <br>
 
@@ -65,7 +70,7 @@
 
         <label>&nbsp;</label>
         <input type="submit" value="Submit">
-        
+
     </form>
     <div id="formatting_directions">
         <h2>How to work with the description</h2>
