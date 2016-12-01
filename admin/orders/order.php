@@ -6,6 +6,12 @@
     <p>Order Date: <?php echo $order_date; ?></p>
     <p>Customer: <?php echo htmlspecialchars($name) . ' (' . 
             htmlspecialchars($email) . ')'; ?></p>
+    <form action="." method="post" >
+        <input type="hidden" name="action" value="print_details">
+        <input type="hidden" name="order_id"
+               value="<?php echo $order_id; ?>">
+        <input type="submit" value="Print Shipping Document">
+    </form>
     <h2>Shipping</h2>
     <?php if ($order['shipDate'] === NULL) : ?>
         <p>Ship Date: Not yet shipped</p>
