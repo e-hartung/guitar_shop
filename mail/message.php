@@ -2,6 +2,8 @@
 $order = get_order($order_id);
 $order_items = get_order_items($order_id);
 $shipping_address = get_address($order['shipAddressID']);
+$order_date = date('M j, Y', strtotime($order['orderDate']));
+$ship_date = $order['shipDate'];
 
 ?>
 <html>
@@ -38,7 +40,11 @@ $shipping_address = get_address($order['shipAddressID']);
 </head>
 <body>
 <p>Hello <?php echo $customer_name; ?>,
-<p>Thank you for shopping with Guitar Shop. Your order will be shipped soon.</p>
+<?php if ($ship_date === NULL) : ?>
+    <p>Thank you for shopping with Guitar Shop. Your order will be shipped soon.</p>
+<?php else : ?>
+    <p>Your order from Guitar Shop, placed on <?php echo $order_date; ?>, has been shipped. You can expect your shipment to arrive in 5-7 business days.</p>
+<?php endif; ?>
 <h3>Order Items</h3>
 <table id="cart">
     <tr id="cart_header">
