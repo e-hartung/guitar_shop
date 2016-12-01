@@ -1,0 +1,12 @@
+ORDER 2   SHIPPING DETAILS
+
+
+SHIP TO:
+Barry Zimmer
+16285 Wendell St.
+Omaha, NE 68135
+402-896-2576
+
+
+ORDER ITEMS:
+Yamaha FG700S   x1
