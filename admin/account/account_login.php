@@ -22,5 +22,6 @@
         </span><br>
         <?php endif; ?>
     </form>
+    <p><a href="?action=view_account">Add an Administrator</a></p>
 </main>
 <?php include 'view/footer.php'; ?>

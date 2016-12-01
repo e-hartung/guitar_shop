@@ -3,47 +3,48 @@
 <main>
     <h1>Administrator Accounts</h1>
     <?php if (isset($_SESSION['admin'])) : ?>
-    <h2>My Account</h2>
-    <p><?php echo $_SESSION['admin']['firstName'] . ' ' .
-            $_SESSION['admin']['lastName'] .
-            ' (' . $_SESSION['admin']['emailAddress'] . ')'; ?></p>
-    <form action="." method="post">
-        <input type="hidden" name="action" value="view_edit">
-        <input type="hidden" name="admin_id" 
-               value="<?php echo $_SESSION['admin']['adminID']; ?>">
-        <input type="submit" value="Edit">
-    </form>
-    <?php endif; ?>
-    <?php if ( count($admins) > 1 ) : ?>
-        <h2>Other Administrators</h2>
-        <table>
-        <?php foreach($admins as $admin):
-            if ($admin['adminID'] != $_SESSION['admin']['adminID']) : ?>
-            <tr>
-                <td><?php echo $admin['lastName'] . ', ' .
-                           $admin['firstName']; ?>
-                </td>
-                <td>
-                    <form action="." method="post" class="inline">
-                        <input type="hidden" name="action"
-                            value="view_edit">
-                        <input type="hidden" name="admin_id"
-                            value="<?php echo $admin['adminID']; ?>">
-                        <input type="submit" value="Edit">
-                    </form>
-                    <form action="." method="post" class="inline">
-                        <input type="hidden" name="action"
-                            value="view_delete_confirm">
-                        <input type="hidden" name="admin_id"
-                            value="<?php echo $admin['adminID']; ?>">
-                        <input type="submit" value="Delete">
-                    </form>
-                </td>
-            </tr>
-            <?php endif; ?>
-        <?php endforeach; ?>
-        </table>
-    <?php endif; ?>
+        <h2>My Account</h2>
+        <p><?php echo $_SESSION['admin']['firstName'] . ' ' .
+                $_SESSION['admin']['lastName'] .
+                ' (' . $_SESSION['admin']['emailAddress'] . ')'; ?></p>
+        <form action="." method="post">
+            <input type="hidden" name="action" value="view_edit">
+            <input type="hidden" name="admin_id" 
+                   value="<?php echo $_SESSION['admin']['adminID']; ?>">
+            <input type="submit" value="Edit">
+        </form>
+
+        <?php if ( count($admins) > 1 ) : ?>
+            <h2>Other Administrators</h2>
+            <table>
+            <?php foreach($admins as $admin):
+                if ($admin['adminID'] != $_SESSION['admin']['adminID']) : ?>
+                <tr>
+                    <td><?php echo $admin['lastName'] . ', ' .
+                               $admin['firstName']; ?>
+                    </td>
+                    <td>
+                        <form action="." method="post" class="inline">
+                            <input type="hidden" name="action"
+                                value="view_edit">
+                            <input type="hidden" name="admin_id"
+                                value="<?php echo $admin['adminID']; ?>">
+                            <input type="submit" value="Edit">
+                        </form>
+                        <form action="." method="post" class="inline">
+                            <input type="hidden" name="action"
+                                value="view_delete_confirm">
+                            <input type="hidden" name="admin_id"
+                                value="<?php echo $admin['adminID']; ?>">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </table>
+        <?php endif; // ends inner if ?>
+    <?php endif; // ends outer if ?>
     <h2>Add an Administrator</h2>
     <form action="." method="post" id="add_admin_user_form">
         <input type="hidden" name="action" value="create">

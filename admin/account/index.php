@@ -10,17 +10,18 @@ if (admin_count() == 0) {
     if ($action != 'create') {
         $action = 'view_account';
     }
-} elseif (isset($_SESSION['admin'])) {
+} else if (isset($_SESSION['admin'])) {
     if ($action == null) {
         $action = filter_input(INPUT_GET, 'action');
         if ($action == null ) {
             $action = 'view_account';            
         }
     }
-} elseif ($action == 'login') {
-    $action = 'login';
-} else {
-    $action = 'view_login';
+} else if ($action == NULL) {
+    $action = filter_input(INPUT_GET, 'action');
+    if ($action == NULL) {
+        $action = 'view_login';
+    }
 }
 
 // Set up all possible fields to validate
